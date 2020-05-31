@@ -1,2 +1,2 @@
 # Project5
-Public API Requests
+Team Treehouse Project 5 - Public API Requests
