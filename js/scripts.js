@@ -133,14 +133,37 @@ const generateCard = (data) => {
 
   cardDiv.addEventListener('click', () => {
     modalContainerDiv.style.display = '';
-
-    modalCloseBut.addEventListener('click', () => {
-      modalContainerDiv.style.display = 'none';
-    })
   });
+
+  modalCloseBut.addEventListener('click', () => {
+    modalContainerDiv.style.display = 'none';
+  })
+
+  prevBut.addEventListener('click', (event) => {
+    const thisModal = event.target.parentNode.parentNode;
+    const previousModal = event.target.parentNode.parentNode.previousSibling;
+
+    if (previousModal && previousModal.className === 'modal-container'){
+      thisModal.style.display = 'none';
+      previousModal.style.display = '';
+    }
+  })
+
+  nextBut.addEventListener('click', (event) => {
+    const thisModal = event.target.parentNode.parentNode;
+    const nextModal = event.target.parentNode.parentNode.nextSibling;
+
+    if (nextModal && nextModal.className === 'modal-container'){
+      thisModal.style.display = 'none';
+      nextModal.style.display = '';
+    }
+  })
 
   console.log(data);
 }
+
+
+
 
 fetch('https://randomuser.me/api/?results=12')
   .then(response => response.json())
