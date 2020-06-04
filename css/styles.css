@@ -34,6 +34,10 @@ header h1 {
     margin-top: 35px;
 }
 
+h3 {
+	color: #0066ff;
+}
+
 .search-input {
     padding: 0.4rem 1rem;
     border: 1px solid rgba(200, 200, 200, 0.9);
@@ -151,8 +155,10 @@ header h1 {
     top: 15px;
     right: 15px;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.9);
-    background: rgba(0, 0, 0, 0.8);
+    /*color: rgba(255, 255, 255, 0.9);*/
+		color: black;
+    /*background: rgba(0, 0, 0, 0.8);*/
+		background-color: #ff0000;
     outline: none;
     border-radius: 0.25em;
     border: 1px solid rgba(50, 50, 50, 0.3);
@@ -201,7 +207,8 @@ header h1 {
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.9);
     padding: 0.75em 1.5em;
-    background: rgba(0, 0, 0, 0.8);
+    /*background: rgba(0, 0, 0, 0.8);*/
+		background-color: rgba(51, 204, 51, 0.8);
     border-radius: 0.35em;
     transition: .4s ease-out;
     outline: none;
