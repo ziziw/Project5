@@ -191,6 +191,7 @@ const generateCard = (data) => {
   })
 }
 
+//search function
 const cards = galleryDiv.children;
 
 const searchFunction = () => {
@@ -214,6 +215,7 @@ submitBut.addEventListener('click', () => {
 searchInput.addEventListener('keyup', () => {
   searchFunction();
 })
+//search function end
 
 
 
