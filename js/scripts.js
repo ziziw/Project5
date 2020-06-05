@@ -5,6 +5,7 @@ const searchDiv = document.querySelector('.search-container');
 const searchForm = document.createElement('form');
 const searchInput = document.createElement('input');
 const submitBut = document.createElement('input');
+
 const cards = galleryDiv.children;
 
 searchForm.action = '#';
@@ -22,6 +23,7 @@ searchDiv.appendChild(searchForm);
 searchForm.appendChild(searchInput);
 searchForm.appendChild(submitBut);
 
+//generate a card, and add click event listener to show modal.
 const generateCard = (data) => {
   const cardDiv = document.createElement('div');
   const cardImgContainer = document.createElement('div');
@@ -65,9 +67,9 @@ const generateCard = (data) => {
       }
     }
   });
-
 }
 
+//generate modal. add click event to close button, previous button, and next button.
 const generateModal = (data) => {
   const modalContainerDiv = document.createElement('div');
   const modalDiv = document.createElement('div');
@@ -166,17 +168,13 @@ const generateModal = (data) => {
     }
 
     let previousCard = thisCard.previousSibling;
-
     let shownModal = thisModal;
 
     while (previousCard && previousCard.className === 'card' && previousCard.style.display === 'none'){
-
       thisCard = previousCard;
       previousCard = thisCard.previousSibling;
-
       thisModal = previousModal;
       previousModal = previousModal.previousSibling;
-
     }
 
     if (previousModal && previousModal.className === 'modal-container'){
@@ -198,17 +196,13 @@ const generateModal = (data) => {
     }
 
     let nextCard = thisCard.nextSibling;
-
     let shownModal = thisModal;
 
     while (nextCard && nextCard.className === 'card' && nextCard.style.display === 'none'){
-
       thisCard = nextCard;
       nextCard = thisCard.nextSibling;
-
       thisModal = nextModal;
       nextModal = nextModal.nextSibling;
-
     }
 
     if (nextModal && nextModal.className === 'modal-container'){
@@ -220,8 +214,6 @@ const generateModal = (data) => {
 
 
 //search function
-
-
 const searchFunction = () => {
     const userInput = searchInput.value.toUpperCase();
 
@@ -236,15 +228,18 @@ const searchFunction = () => {
     }
 }
 
+//add search function to submit button.
 submitBut.addEventListener('click', () => {
   searchFunction();
 })
 
+//add search function to keyup event.
 searchInput.addEventListener('keyup', () => {
   searchFunction();
 })
 //search function end
 
+//check fetch response.
 const checkStatus = (response) => {
   if (response.ok){
     return Promise.resolve(response);
@@ -253,6 +248,9 @@ const checkStatus = (response) => {
   }
 }
 
+//fetch 12 results from API.
+//generate a card for each result.
+//generate a modal for each result.
 fetch('https://randomuser.me/api/?results=12')
   .then(checkStatus)
   .then(response => response.json())
