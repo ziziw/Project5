@@ -5,6 +5,7 @@ const searchDiv = document.querySelector('.search-container');
 const searchForm = document.createElement('form');
 const searchInput = document.createElement('input');
 const submitBut = document.createElement('input');
+const cards = galleryDiv.children;
 
 searchForm.action = '#';
 searchForm.method = 'get';
@@ -53,6 +54,21 @@ const generateCard = (data) => {
   cardInfoContainer.appendChild(emailText);
   cardInfoContainer.appendChild(cityText);
 
+  cardDiv.addEventListener('click', (event) => {
+    const currentModals = document.querySelectorAll('.modal-container');
+
+    for(let i = 0; i < cards.length; i++){
+      if(cards[i].contains(event.target)){
+        currentModals[i].style.display = '';
+      } else {
+        currentModals[i].style.display = 'none';
+      }
+    }
+  });
+
+}
+
+const generateModal = (data) => {
   const modalContainerDiv = document.createElement('div');
   const modalDiv = document.createElement('div');
   const modalCloseBut = document.createElement('button');
@@ -83,6 +99,7 @@ const generateCard = (data) => {
   modalImg.alt = 'profile picture';
   modalName.id = 'name';
   modalName.classList.add('modal-name', 'cap');
+  const fullName = data.name.first + ' ' + data.name.last;
   modalName.innerText = fullName;
   modalEmail.classList.add('modal-text');
   modalEmail.innerText = data.email;
@@ -132,10 +149,6 @@ const generateCard = (data) => {
 
   modalContainerDiv.style.display = 'none';
 
-  cardDiv.addEventListener('click', () => {
-    modalContainerDiv.style.display = '';
-  });
-
   modalCloseBut.addEventListener('click', () => {
     modalContainerDiv.style.display = 'none';
   })
@@ -143,8 +156,16 @@ const generateCard = (data) => {
   prevBut.addEventListener('click', (event) => {
     let thisModal = event.target.parentNode.parentNode;
     let previousModal = event.target.parentNode.parentNode.previousSibling;
-    let thisCard = cardDiv;
-    let previousCard = cardDiv.previousSibling;
+    const thisModalName = thisModal.children[0].children[1].children[1].innerText;
+    let thisCard;
+
+    for(let i = 0; i < cards.length; i++){
+      if (cards[i].children[1].children[0].innerText === thisModalName){
+        thisCard = cards[i];
+      }
+    }
+
+    let previousCard = thisCard.previousSibling;
 
     let shownModal = thisModal;
 
@@ -162,14 +183,21 @@ const generateCard = (data) => {
       shownModal.style.display = 'none';
       previousModal.style.display = '';
     }
-
   })
 
   nextBut.addEventListener('click', (event) => {
     let thisModal = event.target.parentNode.parentNode;
     let nextModal = event.target.parentNode.parentNode.nextSibling;
-    let thisCard = cardDiv;
-    let nextCard = cardDiv.nextSibling;
+    const thisModalName = thisModal.children[0].children[1].children[1].innerText;
+    let thisCard;
+
+    for(let i = 0; i < cards.length; i++){
+      if (cards[i].children[1].children[0].innerText === thisModalName){
+        thisCard = cards[i];
+      }
+    }
+
+    let nextCard = thisCard.nextSibling;
 
     let shownModal = thisModal;
 
@@ -187,11 +215,12 @@ const generateCard = (data) => {
       shownModal.style.display = 'none';
       nextModal.style.display = '';
     }
-
   })
 }
 
-const cards = galleryDiv.children;
+
+//search function
+
 
 const searchFunction = () => {
     const userInput = searchInput.value.toUpperCase();
@@ -214,14 +243,25 @@ submitBut.addEventListener('click', () => {
 searchInput.addEventListener('keyup', () => {
   searchFunction();
 })
+//search function end
 
-
+const checkStatus = (response) => {
+  if (response.ok){
+    return Promise.resolve(response);
+  } else {
+    return Promise.reject(new Error(response.statusText));
+  }
+}
 
 fetch('https://randomuser.me/api/?results=12')
+  .then(checkStatus)
   .then(response => response.json())
+  .catch(error => console.log('Error fetching data from URL', error))
   .then(responseObj => {
     return responseObj.results;
   })
   .then(datas => datas.forEach((data) => {
-    generateCard(data)
-  }));
+    generateCard(data);
+    generateModal(data);
+  })
+);
