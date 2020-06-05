@@ -248,7 +248,7 @@ const checkStatus = (response) => {
   }
 }
 
-//fetch 12 results from API.
+//fetch 12 US results from API.
 //generate a card for each result.
 //generate a modal for each result.
 fetch('https://randomuser.me/api/?nat=us&results=12')
