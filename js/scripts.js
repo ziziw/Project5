@@ -215,17 +215,17 @@ const generateModal = (data) => {
 
 //search function
 const searchFunction = () => {
-    const userInput = searchInput.value.toUpperCase();
+  const userInput = searchInput.value.toUpperCase();
 
-    for (let i = 0; i < cards.length; i++){
-      const card = cards[i];
-      const name = card.lastChild.firstChild.innerText;
-      if (name.toUpperCase().indexOf(userInput) > -1){
-        cards[i].style.display = '';
-      } else {
-        cards[i].style.display = 'none';
-      }
+  for (let i = 0; i < cards.length; i++){
+    const card = cards[i];
+    const name = card.lastChild.firstChild.innerText;
+    if (name.toUpperCase().indexOf(userInput) > -1){
+      cards[i].style.display = '';
+    } else {
+      cards[i].style.display = 'none';
     }
+  }
 }
 
 //add search function to submit button.
@@ -251,7 +251,7 @@ const checkStatus = (response) => {
 //fetch 12 results from API.
 //generate a card for each result.
 //generate a modal for each result.
-fetch('https://randomuser.me/api/?results=12')
+fetch('https://randomuser.me/api/?nat=us&results=12')
   .then(checkStatus)
   .then(response => response.json())
   .catch(error => console.log('Error fetching data from URL', error))
